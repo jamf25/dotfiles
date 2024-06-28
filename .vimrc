@@ -58,7 +58,7 @@ nnoremap <C-t> :tabnew<Space>
 nnoremap <C-l> :tabnext<CR>
 nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-e> :18Lex<CR>
-nnoremap <leader>n :set<Space>nonumber<Space>norelativenumber
+nnoremap <leader>n :set<Space>number!<Space>relativenumber!<CR>
 nnoremap <C-h> :set nohlsearch!<CR>
 nnoremap <leader>z :set foldenable!<CR>
 " feeble attempt to use <cword> in remap

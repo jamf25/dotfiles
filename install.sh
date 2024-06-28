@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# .config dir usage requires...
+# tmux version >= 3.1
+
 if [ ! -d "$HOME/.config" ]; then
   mkdir "$HOME/.config"
 fi
