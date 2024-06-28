@@ -16,9 +16,9 @@ for i in $(ls -d */); do
 done
 
 # overwrite any existing bash files since i just don't know how to make it use .config/bash
-ln -f -s $HOME/.bashrc $PWD/.bashrc
-ln -f -s $HOME/.bash_profile $PWD/.bash_profile
-ln -f -s $HOME/.vimrc $PWD/.vimrc
+ln -f -s $PWD/.bashrc $HOME/.bashrc 
+ln -f -s $PWD/.bash_profile $HOME/.bash_profile 
+ln -f -s $PWD/.vimrc $HOME/.vimrc 
 
 echo "done"
 
