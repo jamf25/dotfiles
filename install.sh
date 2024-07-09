@@ -21,6 +21,7 @@ done
 # overwrite any existing bash files since i just don't know how to make it use .config/bash
 ln -f -s $PWD/.bashrc $HOME/.bashrc 
 ln -f -s $PWD/.bash_profile $HOME/.bash_profile 
+ln -f -s $PWD/.bash_aliases $HOME/.bash_aliases 
 ln -f -s $PWD/.vimrc $HOME/.vimrc 
 
 echo "done"

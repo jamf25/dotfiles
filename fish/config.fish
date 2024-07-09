@@ -8,6 +8,10 @@ function diff
     git difftool $argv
 end
 
+function fzdir
+   find . -type f | fzf
+end
+
 # Fetch from origin
 function fetch
     git fetch origin
