@@ -25,13 +25,16 @@ PALE_BLUE="\[\e[38;5;123m\]"
 LAVENDER="\[\e[38;5;141m\]"  
 EZBLUE="\[\e[38;5;69m\]"  
 PINK="\[\e[38;5;219m\]"  
-TAN="\[\e[38;5;223m\]"  
+TAN="\[\e[38;5;222m\]"  
 EZORANGE="\[\e[38;5;214m\]"  
 VIOLET="\[\e[38;5;135m\]"  
 CHARTREUSE="\[\e[38;5;148m\]"  
 HACKERGREEN="\[\e[38;5;46m\]"  
 EZBROWN="\[\e[38;5;52m\]"  
 CHARCOAL="\[\e[38;5;234m\]"  
+VPINK="\[\e[38;5;207m\]"  
+SBLUE="\[\e[38;5;33m\]"  
+
 # "\[[38;5;{ID}m]"
 
 
@@ -151,7 +154,7 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     # Define prompt with git branch and other details
-    PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${EZORANGE}\h ${MINT}\w ${HACKERGREEN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n$ "
+    PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${EZORANGE}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n$ "
 #    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
