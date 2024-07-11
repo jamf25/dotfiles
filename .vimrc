@@ -53,7 +53,6 @@ set foldnestmax=3
 set splitbelow splitright
 " remaps
 nnoremap <C-e> :!crf<Space>
-nnoremap <C-m> :!mv<Space>%<Space>
 nnoremap <C-t> :tabnew<Space>
 nnoremap <C-l> :tabnext<CR>
 nnoremap <C-j> :tabprevious<CR>
