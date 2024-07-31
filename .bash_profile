@@ -1,45 +1,51 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bashrc: executed by bash(2) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 export TERM=xterm-256color
+#fzf goodness
+source ~/.fzf.bash
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
 
-# Alias definitions.
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+# Define colors
+RESET="\[\e[0m\]"
+RED="\[\e[31m\]"
+GREEN="\[\e[32m\]"
+YELLOW="\[\e[33m\]"
+BLUE="\[\e[34m\]"
+MAGENTA="\[\e[35m\]"
+CYAN="\[\e[36m\]"
+WHITE="\[\e[37m\]"
+MINT="\[\e[38;5;48m\]"  
+PALE_BLUE="\[\e[38;5;123m\]"  
+LAVENDER="\[\e[38;5;141m\]"  
+EZBLUE="\[\e[38;5;69m\]"  
+PINK="\[\e[38;5;219m\]"  
+TAN="\[\e[38;5;222m\]"  
+EZORANGE="\[\e[38;5;214m\]"  
+VIOLET="\[\e[38;5;135m\]"  
+CHARTREUSE="\[\e[38;5;148m\]"  
+HACKERGREEN="\[\e[38;5;46m\]"  
+EZBROWN="\[\e[38;5;52m\]"  
+CHARCOAL="\[\e[38;5;234m\]"  
+VPINK="\[\e[38;5;207m\]"  
+SBLUE="\[\e[38;5;33m\]"  
 
-
-alias bshedit="vim ~/.bash_profile"
-
-alias shz="grep bash /doc/custom"
-alias htbvpn='openvpn /home/omega/vpn/htb.ovpn'
-alias mkvpn='vim /home/omega/vpn/htb.ovpn'
-alias pmap='proxychains -q nmap -sT -Pn'
-alias nmap='nmap --stylesheet nmap-bootstrap.xsl'
-alias qmap='nmap --top-ports=150 -T4'
-alias fullmap='nmap -T4 -sC -sV -O'
-alias pffuf='ffuf -x http://localhost:8080'
-alias t1ip="ip ad l tun0 | grep inet\  | awk '{split($0,a,\" \"); split(a[2],b,\"/\");print b[1]}'"
-alias rfuf='ffuf -w /wordlists/dirb/small.txt -recursion -recursion-depth 2 -e .txt,.bak,.php,.htm,.html'
-alias qfuf='ffuf -w /NI'
-alias xfuf='ffuf -w /wordlists/dirb/small.txt -e .txt,.bak,.php,.htm,.html'
-alias bfuf='ffuf -w /ulist/common-admins.txt:UFUZZ -w /plist/quick_win_passwords.txt:PFUZZ'
-#make postdata fuffy
-#try fix this
-#for gettings ports from nmap.xml
-alias portsplz="grep -oE --color 'portid=\"[[:digit:]]+\"'"
-alias quickwin="medusa -f -O medusa.log -U /ulist/top-usernames-shortlist.txt -P /plist/quick_win_passwords.txt -t 10"
-alias portmap="nmap -p- -oN allports"
+# "\[[38;5;{ID}m]"
 
 
 #testing area
 # cat allports |grep ^[[:digit:]] |  awk -F\/ '{print $1}' | tr '\n' ',' 1 | cut -d' ' -f 2
+#alias  grep -o Ports.* ports | grep -oE [[:digit:]]+/open |  tr -d '\r\n' | sed 's/\/open/,/g' | sed 's/.$//'
 
 
 # template for doing jq stuff            string intrepidation? lol
@@ -53,7 +59,16 @@ alias portmap="nmap -p- -oN allports"
 #custom functions#
 ##################
 
+# outputs base64 from filename with no newlines or spaces
+makeb64() {
+  local script_content="$1"  # Access the first argument (script content)
+  encoded_script=$(echo -n "$script_content" | base64)
+  processed_script=${encoded_script// /}  # Remove spaces using parameter substitution
+  echo "$processed_script"
+}
 
+
+# how to get docs too? maybe set var and reference twice with jc?
 function jsearch(){				#      reset term color  tab  have to quote '-'   term color red
   searchsploit $@ -j | jq -C -r  '.RESULTS_EXPLOIT[]| "\u001b[0m \(.Date) \t \(."EDB-ID")  \t \u001b[33m \(.Title)"' | sort
 }
@@ -70,6 +85,9 @@ function getss(){
   fi
 }
 
+function clean-config () {
+  egrep -v '^\s*#|^$' $1
+}
 
 # pull urls from ffuf output
 function jfuf() {
@@ -92,14 +110,15 @@ function curfuf() {
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
+HISTIGNORE="history:ls:pwd:cd"
 #http_proxy=http://127.0.0.1:8088
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=2500
+HISTFILESIZE=4000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -139,7 +158,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    # Define prompt with git branch and other details
+    PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${EZORANGE}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n$ "
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -168,7 +189,6 @@ fi
 
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -183,6 +203,15 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+# Function to extract current git branch
+parse_git_branch() {
+  git branch 2>/dev/null | grep '\*' | sed 's/* //'
+}
+
+
+# Export the PS1 variable
+export PS1
 
 # revisit atuin project
-#. "$HOME/.atuin/bin/env"
+#[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+#eval "$(atuin init bash)"
