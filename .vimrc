@@ -43,6 +43,7 @@ set ruler
 set nofoldenable
 "autocmd yml setlocal foldmethod=indent
 set foldmethod=indent
+"set foldmethod=marker
 set foldnestmax=3
 "set nofoldenable
 
@@ -51,15 +52,31 @@ set foldnestmax=3
 
 set splitbelow splitright
 " remaps
+
+nnoremap <C-r> :source ~/.vimrc<CR>
 nnoremap <C-e> :!crf<Space>
 nnoremap <C-t> :tabnew<Space>
 nnoremap <C-l> :tabnext<CR>
 nnoremap <C-j> :tabprevious<CR>
+nnoremap <C-h> :set nohlsearch!<CR>
 nnoremap <C-e> :18Lex<CR>
+
+" leader remaps
 nnoremap <leader>a :set<Space>autoindent!<CR>
 nnoremap <leader>n :set<Space>number!<Space>relativenumber!<CR>
-nnoremap <C-h> :set nohlsearch!<CR>
 nnoremap <leader>z :set foldenable!<CR>
+" FZF remaps
+nnoremap <leader>o :Files<CR>
+nnoremap <leader>m :Marks<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>t :Tags<CR>
+" new window
+nnoremap <leader>v :vnew<space>
+" open file under cursor in window
+nnoremap <leader>of <C-w><C-f>
+" switch windows
+nnoremap <leader>w <C-w>w
+" remove trailing whitespace
 " feeble attempt to use <cword> in remap
 " nnoremap <leader>s /expand('<cword>')
 
@@ -69,13 +86,6 @@ nnoremap <leader>z :set foldenable!<CR>
 
 
 
-" new window
-nnoremap <leader>v :vnew<space>
-" open file under cursor in window
-nnoremap <leader>of <C-w><C-f>
-" switch windows
-nnoremap <leader>w <C-w>w
-" remove trailing whitespace
 
 " shorcut to find and replace
 nnoremap S :%s//gI<Left><Left><Left>
@@ -107,5 +117,6 @@ nnoremap S :%s//gI<Left><Left><Left>
 
 call plug#begin()
 Plug 'mattn/emmet-vim'
-Plug 'tpope/vim-sensible'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
