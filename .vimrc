@@ -18,6 +18,9 @@ highlight CursorLine cterm=NONE ctermbg=232 ctermfg=white guibg=#004040 guifg=wh
 " set mapleader key
 let mapleader=" "
 
+" tab options  
+set tabstop=2
+set shiftwidth=2
 set autoindent
 set expandtab
 set paste
@@ -45,10 +48,6 @@ set foldnestmax=3
 
 
 
-" tab options  
-:set tabstop=2
-:set shiftwidth=2
-:set expandtab
 
 set splitbelow splitright
 " remaps
@@ -57,6 +56,7 @@ nnoremap <C-t> :tabnew<Space>
 nnoremap <C-l> :tabnext<CR>
 nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-e> :18Lex<CR>
+nnoremap <leader>a :set<Space>autoindent!<CR>
 nnoremap <leader>n :set<Space>number!<Space>relativenumber!<CR>
 nnoremap <C-h> :set nohlsearch!<CR>
 nnoremap <leader>z :set foldenable!<CR>
@@ -103,3 +103,9 @@ nnoremap S :%s//gI<Left><Left><Left>
 "<PageUp>       Page-Up
 "<PageDown>     Page-Down
 "<bar>          the '|' character, which otherwise needs to be escaped '\|'
+
+
+call plug#begin()
+Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-sensible'
+call plug#end()

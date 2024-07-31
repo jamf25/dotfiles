@@ -207,3 +207,6 @@ parse_git_branch() {
 # Export the PS1 variable
 export PS1
 
+# revisit atuin project
+#[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+#eval "$(atuin init bash)"
