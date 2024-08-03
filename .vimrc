@@ -1,9 +1,9 @@
-syntax enable
+"syntax enable
 " line numbers
 set number relativenumber
 
 
-" coloring and crosshair options
+"" coloring and crosshair options
 colorscheme elflord
 set t_Co=256
 set cursorcolumn
@@ -14,7 +14,6 @@ highlight CursorLine cterm=NONE ctermbg=232 ctermfg=white guibg=#004040 guifg=wh
 " mods I'm not set on
 " set mouse-=a
 " noremap <C-[><Esc>
-" set wildmode=longest,list,full
 " set mapleader key
 let mapleader=" "
 
@@ -23,12 +22,16 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 set expandtab
-set paste
+"set paste
 set hlsearch
 set smartcase
 set lazyredraw
 set laststatus=2
 set ruler
+set shortmess+=c
+set complete=.,w,b,u,t,i,kspell
+set wildmode=longest,list,full
+set completeopt=menuone,longest
 
 " folding options
 " defaults for reference
@@ -41,21 +44,31 @@ set ruler
 " highlight Folded guifg=PeachPuff4
 " methods: indent | synta | marker | expr
 set nofoldenable
-"autocmd yml setlocal foldmethod=indent
+""autocmd yml setlocal foldmethod=indent
 set foldmethod=indent
-"set foldmethod=marker
+""set foldmethod=marker
 set foldnestmax=3
-"set nofoldenable
-
-
-
-
 set splitbelow splitright
+"set termguicolors
+" ultisnip maps
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" Trigger a highlight only when pressing f and F.
+
+
+
+"let g:UltiSnipsSnippetDirectories="$(HOME)/.vim/plugged/"
+packadd vimcomplete
+
+
 " remaps
 
-nnoremap <C-r> :source ~/.vimrc<CR>
 nnoremap <C-e> :!crf<Space>
-nnoremap <C-t> :tabnew<Space>
+nnoremap <C-q> :tabnew<Space>
 nnoremap <C-l> :tabnext<CR>
 nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-h> :set nohlsearch!<CR>
@@ -63,6 +76,7 @@ nnoremap <C-e> :18Lex<CR>
 
 " leader remaps
 nnoremap <leader>a :set<Space>autoindent!<CR>
+nnoremap <leader>r :source ~/.vimrc<CR>
 nnoremap <leader>n :set<Space>number!<Space>relativenumber!<CR>
 nnoremap <leader>z :set foldenable!<CR>
 " FZF remaps
@@ -82,41 +96,35 @@ nnoremap <leader>w <C-w>w
 
 " reference example
 " https://vi.stackexchange.com/questions/16090/trouble-using-cword-in-mapping
-
-
-
-
-
 " shorcut to find and replace
 nnoremap S :%s//gI<Left><Left><Left>
 
 
 
 
-"<BS>           Backspace
-"<Tab>          Tab
-"<CR>           Enter
-"<Enter>        Enter
-"<Return>       Enter
-"<Esc>          Escape
-"<Space>        Space
-"<Up>           Up arrow
-"<Down>         Down arrow
-"<Left>         Left arrow
-"<Right>        Right arrow
-"<F1> - <F12>   Function keys 1 to 12
-"#1, #2..#9,#0  Function keys F1 to F9, F10
-"<Insert>       Insert
-"<Del>          Delete
-"<Home>         Home
-"<End>          End
-"<PageUp>       Page-Up
-"<PageDown>     Page-Down
-"<bar>          the '|' character, which otherwise needs to be escaped '\|'
-
-
 call plug#begin()
-Plug 'mattn/emmet-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'vim-scripts/AutoComplPop'
+Plug 'tpope/vim-commentary'
+Plug 'unblevable/quick-scope'
+"Plug 'jayli/vim-easycomplete'
+"Plug 'girishji/vimcomplete'
 call plug#end()
+
+"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+inoremap <expr> <cr>    pumvisible() ? "<C-y>" : "<cr>"
+
+
+highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=7 ctermbg=52 cterm=underline
+highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=3 ctermbg=19 cterm=underline
+"augroup qs_colors
+"  autocmd!
+"  autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=7 ctermbg=52 cterm=underline
+"  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=3 ctermbg=33 cterm=underline
+"augroup END
