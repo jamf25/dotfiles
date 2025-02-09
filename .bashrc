@@ -19,7 +19,6 @@ esac
 # Define colors
 RESET="\[\e[0m\]"
 RED="\[\e[31m\]"
-BRED="\[\e[01;31m\]"
 GREEN="\[\e[32m\]"
 YELLOW="\[\e[33m\]"
 BLUE="\[\e[34m\]"
@@ -70,7 +69,7 @@ makeb64() {
 
 
 # how to get docs too? maybe set var and reference twice with jc?
-function jsearch(){				#      reset term color  tab  have to quote '-'   term color red
+function jsearch(){                             #      reset term color  tab  have to quote '-'   term color red
   searchsploit $@ -j | jq -C -r  '.RESULTS_EXPLOIT[]| "\u001b[0m \(.Date) \t \(."EDB-ID")  \t \u001b[33m \(.Title)"' | sort
 }
 
@@ -149,20 +148,17 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
 if [ "$color_prompt" = yes ]; then
     # Define prompt with git branch and other details
-    if [ `id -u` == 0 ] ; then
-      PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${BRED}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n# "
-    fi
     PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${EZORANGE}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n$ "
 #    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
