@@ -69,7 +69,7 @@ makeb64() {
 
 
 # how to get docs too? maybe set var and reference twice with jc?
-function jsearch(){				#      reset term color  tab  have to quote '-'   term color red
+function jsearch(){                             #      reset term color  tab  have to quote '-'   term color red
   searchsploit $@ -j | jq -C -r  '.RESULTS_EXPLOIT[]| "\u001b[0m \(.Date) \t \(."EDB-ID")  \t \u001b[33m \(.Title)"' | sort
 }
 
@@ -148,12 +148,12 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
