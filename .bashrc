@@ -19,6 +19,7 @@ esac
 # Define colors
 RESET="\[\e[0m\]"
 RED="\[\e[31m\]"
+BRED="\[\e[01;31m\]"
 GREEN="\[\e[32m\]"
 YELLOW="\[\e[33m\]"
 BLUE="\[\e[34m\]"
@@ -159,7 +160,10 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     # Define prompt with git branch and other details
-    PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${EZORANGE}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n$ "
+  if [ `id -u` == "0" ] ; then
+        PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${BRED}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n# "
+  fi
+PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${EZORANGE}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n$ "
 #    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
