@@ -19,7 +19,7 @@ esac
 # Define colors
 RESET="\[\e[0m\]"
 RED="\[\e[31m\]"
-BRED="\[\e[01;31m\"
+BRED="\[\e[01;31m\]"
 GREEN="\[\e[32m\]"
 YELLOW="\[\e[33m\]"
 BLUE="\[\e[34m\]"
