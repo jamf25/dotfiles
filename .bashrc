@@ -161,7 +161,7 @@ fi
 if [ "$color_prompt" = yes ]; then
     # Define prompt with git branch and other details
   if [ $(id -u) = "0" ] ; then
-        PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${BRED}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n# "
+        PS1="${CHARTREUSE}\t ${BRED}\u${EZBROWN}@${EZORANGE}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n${RED}# "
   else
     PS1="${CHARTREUSE}\t ${VIOLET}\u${EZBROWN}@${EZORANGE}\h ${MINT}\w ${TAN}\$(parse_git_branch) ${RED}\$(if [ \$? -eq 0 ]; then echo \"${GREEN}✔\"; else echo \"${RED}✘\"; fi)${RESET} \n$ "
   fi
