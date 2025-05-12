@@ -62,7 +62,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 
 "let g:UltiSnipsSnippetDirectories="$(HOME)/.vim/plugged/"
-packadd vimcomplete
+" packadd vimcomplete
 
 
 " remaps
@@ -105,12 +105,13 @@ nnoremap S :%s//gI<Left><Left><Left>
 call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'tpope/vim-commentary'
 Plug 'unblevable/quick-scope'
+Plug 'girishji/vimcomplete'
 "Plug 'jayli/vim-easycomplete'
 "Plug 'girishji/vimcomplete'
 call plug#end()

@@ -60,6 +60,86 @@ SBLUE="\[\e[38;5;33m\]"
 #custom functions#
 ##################
 
+
+#function ami-info() {
+#  aws ec2 describe-images --image-ids ami-0a94c8e4ca2674d5a --region eu-west-2
+#}
+
+
+function ls-rt() {
+    # Check if Azure CLI is installed
+    if ! command -v az &> /dev/null; then
+        echo "Error: Azure CLI not found. Please install it first."
+        return 1
+    fi
+
+    # Check if logged in to Azure
+    if ! az account show &> /dev/null; then
+        echo "Error: Not logged in to Azure. Please run 'az login' first."
+        return 1
+    fi
+
+    # Parse arguments
+    local all=0
+    local table_name=""
+    
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -all)
+                all=1
+                shift
+                ;;
+            -t)
+                table_name="$2"
+                shift 2
+                ;;
+            *)
+                echo "Unknown parameter: $1"
+                echo "Usage: ls-rt [-all] [-t route_table_name]"
+                return 1
+                ;;
+        esac
+    done
+
+    # If -t parameter is provided, display specific route table
+    if [[ -n "$table_name" ]]; then
+        echo "Retrieving details for route table: $table_name"
+        az network route-table show --name "$table_name" --output table
+        return $?
+    fi
+
+    # If -all parameter is provided, list route tables from all regions
+    if [[ $all -eq 1 ]]; then
+        echo "Retrieving route tables from all regions..."
+        
+        # Get all regions where Microsoft.Network is available
+        regions=$(az provider show --namespace Microsoft.Network --query "resourceTypes[?resourceType=='routeTables'].locations[]" --output tsv)
+        
+        for region in $regions; do
+            echo -e "\nRegion: $region"
+            
+            # Get route tables in the region
+            tables=$(az network route-table list --query "[?location=='${region,,}'].name" --output tsv)
+            
+            if [[ -n "$tables" ]]; then
+                echo "$tables" | sort
+            else
+                echo "  No route tables found in this region."
+            fi
+        done
+        
+        return 0
+    fi
+
+    # Default behavior: list route table names in current subscription
+    echo "Route tables in current subscription:"
+    az network route-table list --query "[].{Name:name, Location:location}" --output table
+    
+    return $?
+}
+
+
+
 # outputs base64 from filename with no newlines or spaces
 makeb64() {
   local script_content="$1"  # Access the first argument (script content)
@@ -68,6 +148,9 @@ makeb64() {
   echo "$processed_script"
 }
 
+function cls(){
+  curl cheat.sh/$1 
+}
 
 # how to get docs too? maybe set var and reference twice with jc?
 function jsearch(){                             #      reset term color  tab  have to quote '-'   term color red
