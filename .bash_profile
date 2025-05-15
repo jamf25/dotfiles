@@ -68,6 +68,9 @@ makeb64() {
   echo "$processed_script"
 }
 
+function cls(){
+  curl cheat.sh/$1 
+}
 
 # how to get docs too? maybe set var and reference twice with jc?
 function jsearch(){                             #      reset term color  tab  have to quote '-'   term color red
