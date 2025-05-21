@@ -51,6 +51,15 @@ alias gbrowse='git browse'              # Opens the current git repository websi
 alias gtimes='git utimes'               # Change files modification time to their last commit date.
 
 
+#docker
+alias di="docker image"
+alias dc="docker container"
+alias de="docker exec"
+alias dcls="docker container list"
+alias dils="docker image list"
+alias dls="docker ps -a"
+
+
 
 # Alias definitions.
 # some more ls aliases
