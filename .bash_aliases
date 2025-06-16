@@ -33,6 +33,7 @@ alias gsubs='git submodule update --recursive --remote'    # Update all submodul
 alias gup="git remote update -p; git merge --ff-only @{u}" # Update & Merge
 alias undopush="git push -f origin HEAD^:master"           # Undo a git push
 alias unstage='git reset HEAD'                             # Unstage a file
+alias bat='batcat'
 
 # From Git-Extras (https://github.com/tj/git-extras)
 alias obliterate='git obliterate'       # Completely remove a file from the repository, including past commits and tags

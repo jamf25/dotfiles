@@ -14,8 +14,7 @@ highlight CursorLine cterm=NONE ctermbg=232 ctermfg=white guibg=#004040 guifg=wh
 " mods I'm not set on
 " set mouse-=a
 " noremap <C-[><Esc>
-" set mapleader key
-let mapleader=" "
+
 
 " tab options  
 set tabstop=2
@@ -74,11 +73,16 @@ nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-h> :set nohlsearch!<CR>
 nnoremap <C-e> :18Lex<CR>
 
+
+" set mapleader key
+let mapleader=" "
+
 " leader remaps
 nnoremap <leader>a :set<Space>autoindent!<CR>
 nnoremap <leader>r :source ~/.vimrc<CR>
 nnoremap <leader>n :set<Space>number!<Space>relativenumber!<CR>
 nnoremap <leader>z :set foldenable!<CR>
+
 " FZF remaps
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>m :Marks<CR>
@@ -111,7 +115,7 @@ Plug 'honza/vim-snippets'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'tpope/vim-commentary'
 Plug 'unblevable/quick-scope'
-Plug 'girishji/vimcomplete'
+"Plug 'girishji/vimcomplete'
 "Plug 'jayli/vim-easycomplete'
 "Plug 'girishji/vimcomplete'
 call plug#end()
@@ -122,10 +126,11 @@ call plug#end()
 inoremap <expr> <cr>    pumvisible() ? "<C-y>" : "<cr>"
 
 
+
+" quickscope plugin color settings
 highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=7 ctermbg=52 cterm=underline
 highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=3 ctermbg=19 cterm=underline
-"augroup qs_colors
-"  autocmd!
-"  autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=7 ctermbg=52 cterm=underline
-"  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=3 ctermbg=33 cterm=underline
-"augroup END
+
+" reset backspace manually to maintain compatibility
+set backspace=indent,eol,start
+
