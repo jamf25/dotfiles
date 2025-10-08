@@ -77,6 +77,19 @@ function jsearch(){                             #      reset term color  tab  ha
   searchsploit $@ -j | jq -C -r  '.RESULTS_EXPLOIT[]| "\u001b[0m \(.Date) \t \(."EDB-ID")  \t \u001b[33m \(.Title)"' | sort
 }
 
+dclear() {
+  # Find all exited container IDs, suppressing errors in case Docker isn't running
+  local exited_containers
+  exited_containers=$(docker ps -a -f status=exited -q 2>/dev/null)
+
+  # Check if the variable is non-empty
+  if [[ -n "$exited_containers" ]]; then
+    echo "Found and removing the following terminated containers:"
+    # Pass the list of IDs directly to 'docker rm'
+    docker rm $exited_containers
+  fi
+}
+
 function mknames(){
   usernamer.py -f $1 -p dotted_two_terms,one_term,normal_abbreviated | grep -v '^..$'
 }
