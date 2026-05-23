@@ -66,6 +66,10 @@ SBLUE="\[\e[38;5;33m\]"
 #}
 
 
+function newbox() {
+  mkdir /hak/htb-$1; cd /hak/htb-$1; tmux new-sess -t $1
+}
+
 function ls-rt() {
     # Check if Azure CLI is installed
     if ! command -v az &> /dev/null; then
