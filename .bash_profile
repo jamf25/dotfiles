@@ -53,8 +53,9 @@ SBLUE="\[\e[38;5;33m\]"
 #jsearch="jq -r  '.RESULTS_EXPLOIT[]| "\(.Date) \(.Path) \(.Title)"'"
 
 
-
-
+function dirp() {
+docker inspect -f '{{ .Name }} -> {{ .HostConfig.RestartPolicy.Name }}' $1 
+}
 
 ##################
 #custom functions#
